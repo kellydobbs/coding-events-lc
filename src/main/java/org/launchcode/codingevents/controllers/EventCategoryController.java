@@ -13,38 +13,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("eventCategories")
+@RequestMapping("event-categories")
 public class EventCategoryController {
 
     @Autowired
     public EventCategoryRepository EventCategoryRepository;
 
-//    displayAllEvents
+// displayAllEvents
     @GetMapping()
     public String displayAllEvents(Model model){
         model.addAttribute("title","All Categories");
         model.addAttribute("categories",EventCategoryRepository.findAll());
-        return "eventCategories/index";
+        return "event-categories/index";
     }
 
-//    renderCreateEventCategoryForm
+// renderCreateEventCategoryForm
     @GetMapping("create")
     public String renderCreateEventCategoryForm(Model model){
         model.addAttribute("title","Create Category");
-        model.addAttribute("EventCategory", new EventCategory());
-        return "eventCategories/create";
+        model.addAttribute("eventCategory", new EventCategory());
+        return "event-categories/create";
     }
 
-//    processCreateEventCategoryForm
+// processCreateEventCategoryForm
     @PostMapping("create")
     public String processCreateEventCategoryForm(@ModelAttribute @Valid EventCategory eventCategory, Errors errors,Model model){
         model.addAttribute("title","Create Category");
 
         if(errors.hasErrors()){
             model.addAttribute("Errors", "Create Event");
-            return "eventCategories/create";
+            return "event-categories/create";
         } else {
-            model.addAttribute("EventCategory",EventCategoryRepository.save(eventCategory));
+            model.addAttribute("eventCategory",EventCategoryRepository.save(eventCategory));
             return "redirect:";
         }
     }
